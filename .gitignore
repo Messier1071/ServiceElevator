@@ -1,4 +1,3 @@
 build/
 dist/
-hardware/hardware.pdsprj.*.*.workspace
-hardware.pdsprj.*.*.workspace
+/hardware/hardware.pdsprj.*.*.workspace

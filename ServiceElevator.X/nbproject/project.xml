@@ -3,6 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>serviceElevator</name>
             <name>CTemplate</name>
             <name>Cexec3</name>
             <name>Cexec2</name>
