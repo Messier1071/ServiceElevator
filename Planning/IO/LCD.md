@@ -1,0 +1,1 @@
+displays readings from the sensors([[Entradas#Analógico]]), the current floor (as shown  [[Saidas#7 segment display]])

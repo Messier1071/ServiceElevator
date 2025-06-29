@@ -6,7 +6,7 @@
       {
         "id": "0f2d755988159472",
         "type": "tabs",
-        "dimension": 64.38848920863309,
+        "dimension": 60.26905829596413,
         "children": [
           {
             "id": "0503bf814da22fe4",
@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Elevador.md",
+                "file": "IO/LCD.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Elevador"
+              "title": "LCD"
             }
           }
         ]
@@ -27,7 +27,7 @@
       {
         "id": "931fb79354832683",
         "type": "tabs",
-        "dimension": 35.61151079136691,
+        "dimension": 39.73094170403588,
         "children": [
           {
             "id": "1eb35a30127b4194",
@@ -186,16 +186,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1eb35a30127b4194",
+  "active": "0503bf814da22fe4",
   "lastOpenFiles": [
-    "Elevador.md",
     "IO/Entradas.md",
-    "Requerimentos.md",
-    "WDTcheckpoints.md",
-    "Timers.md",
-    "Interrupcoes.md",
-    "IO/Saidas.md",
     "IO/LCD.md",
+    "Timers.md",
+    "IO/Saidas.md",
+    "Requerimentos.md",
+    "Elevador.md",
+    "Interrupcoes.md",
+    "WDTcheckpoints.md",
     "Interrupcoes 1.md",
     "interrupcoes 1.md",
     "IO",

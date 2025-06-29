@@ -5,9 +5,10 @@
 5. Usar timer pelo menos uma vez
 	1. [[Timers#ElevatorStandby]]
 	2. [[Timers#LCDstandby]]
-6. O sistema embarcado precisa ter um display de [LCD](IO/LCD)
-7. É necessário o uso de pelo menos uma interrupção
+6. O sistema embarcado precisa ter um display de [LCD](IO/LCD) **Done**
+7. É necessário o uso de pelo menos uma interrupção **Done**
 	1. [[Interrupcoes#OverWeightLimit]]
+	2. [[Interrupcoes#ButtonPressed]]
 8. O problema precisa ter originalidade e não ser um sistema banal ***DONE***
 
 [Elevador de carga](Elevador)
