@@ -3,6 +3,9 @@
  5 buttons to pick a room, inputs in binary
   todo: extract the value from pints using a bit mask on portB
 
+## Cancel
+
+
 # switches
 detect where the elevator is
 

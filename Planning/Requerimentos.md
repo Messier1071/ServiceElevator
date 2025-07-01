@@ -1,7 +1,7 @@
-1. O sistema deverá conter pelo menos 4 [entradas](IO/Entradas#Digital)
-2. Pelo menos uma entrada precisa ser [analógica](IO/Entradas#Analog)
-3. O sistema deverá conter pelo menos 4 [saídas](IO/Saidas)
-4. Deverá conter [Watch Dog Time](WDTcheckpoints) 
+1. O sistema deverá conter pelo menos 4 [entradas](IO/Entradas#Digital)  done
+2. Pelo menos uma entrada precisa ser [analógica](IO/Entradas#Analog) done
+3. O sistema deverá conter pelo menos 4 [saídas](IO/Saidas) done
+4. Deverá conter [Watch Dog Time](WDTcheckpoints) done
 5. Usar timer pelo menos uma vez
 	1. [[Timers#ElevatorStandby]]
 	2. [[Timers#LCDstandby]]
