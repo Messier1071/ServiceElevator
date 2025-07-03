@@ -40,24 +40,20 @@
 
 // PortB � duas entradas 3 bit que devem ser processadas para separar
 
-bool isFull();
-bool isEmpty();
-bool enqueue(int value);
-bool dequeue();
-bool top();
+
 
 __bit UpdateScreen = 0;
 int currentFloor = 0;
 int prevFloor = 0;
 
-char TargetFloor = 0;
-char PrevTargetFloor = 0;
+volatile char TargetFloor = 0;
+volatile char PrevTargetFloor = 0;
 
-int CurrentReading = 0;
-int PrevReading = 0;
+volatile int CurrentReading = 0;
+volatile int PrevReading = 0;
 char floor = 0;
 char floorbuff = 0;
-char buff = 0;
+volatile char buff = 0;
 char curfloor = 0;
 
 void main(void)
@@ -138,7 +134,7 @@ void main(void)
 
         // detecta o andar atual
         floorbuff = PORTB;
-        floor = floorbuff >> 5; // separa os 3 MSbs do
+        floor = floorbuff >> 5; // separa os 3 MSbs do portB
 
         if (floorbuff & (1 << 4))
         {
@@ -189,6 +185,11 @@ void main(void)
         if (Cancel == 1)
         {
             TargetFloor = curfloor;
+            Lcd_Clear();
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("E-stop");
+            Lcd_Set_Cursor(2, 1);
+            Lcd_Write_String("pressionado");
         }
 
         if (curfloor == TargetFloor)
@@ -259,7 +260,7 @@ void __interrupt() TrataInt(void)
             UpdateScreen = 1;
         if (CurrentReading > 50)
         {
-            Motor_Active = 0;
+            Motor_Active = 0; //panic state, halt operation
             Lcd_Clear();
             Lcd_Set_Cursor(1, 1);
             Lcd_Write_String("Panic! current");
@@ -270,52 +271,3 @@ void __interrupt() TrataInt(void)
 
     CLRWDT();
 }
-
-// funcoes para a fila
-/*
-bool isFull() {
-    return count == 6;
-}
-
-
-bool isEmpty() {
-    return count == 0;
-}
-
-
-bool enqueue(int value) {
-    if (isFull()) {
-        return false; // Queue is full
-    }
-    if(!isEmpty()){
-        for (int i = 0; i < count; i++) {
-        if (queue[i] == value) {
-            return false;
-        }
-    }
-    }
-    queue[rear] = value;
-    rear = (rear + 1) % 6;
-    count++;
-    return true;
-}
-
-bool top() {
-    if (isEmpty()) {
-        return false; // Queue is empty
-    }
-    TargetFloor = queue[front];
-    return true;
-}
-
-bool dequeue() {
-    if (isEmpty()) {
-        return false; // Queue is empty
-    }
-    TargetFloor = queue[front];
-    front = (front + 1) % 6;
-    count--;
-    return true;
-}
-
-*/

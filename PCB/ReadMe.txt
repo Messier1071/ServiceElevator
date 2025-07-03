@@ -1,0 +1,1 @@
+Estamos enviando o arquivo original da pcb devido a problemas de compulação com a porta nova.
