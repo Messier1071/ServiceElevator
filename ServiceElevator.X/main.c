@@ -49,17 +49,16 @@ bool enqueue(int value);
 bool dequeue();
 bool top();
 
-__bit moving = 0;
-int queue[6];
+__bit UpdateScreen = 0;
 int currentFloor = 0;
-int pointer = 0;
-int front = 0;
-int rear = 0;
-int count = 0;
+int prevFloor = 0;
+
 
 char TargetFloor = 0;
+char PrevTargetFloor = 0;
 
-int currentReading = 0;
+int CurrentReading = 0;
+int PrevReading = 0;
 char floor =0;
 char floorbuff = 0;
 char buff = 0;
@@ -76,9 +75,6 @@ void main(void) {
     TRISD = 0x00; // IO port D
     TRISC = 0b00000100;
     Lcd_Init();
-    for(int i=0;i<=6;i++){
-        queue[i]=0;
-    }
     
     OPTION_REGbits.nRBPU    = 1; //portb PullUp
     OPTION_REGbits.INTEDG   = 1; //interrupt on port0 rising edge 0 -> 1
@@ -133,8 +129,7 @@ void main(void) {
     T1CONbits.TMR1CS = 0;
     PIR1bits.TMR1IF = 0; 
     //
-    TMR1H = 0x17;        
-    TMR1L = 0xB8;
+    
     TMR1L = T1L; //carga do valor inicial no contador (65536-62500)
     TMR1H = T1H;
     PORTC=0x00;
@@ -154,7 +149,8 @@ void main(void) {
         //atualiza o display de 7 segmentos
        
         if (floorbuff & (1 << 4)) {
-        curfloor = floor;
+            prevFloor = curfloor;
+            curfloor = floor;
         
         }
         if (curfloor & (1 << 0)) {
@@ -173,11 +169,17 @@ void main(void) {
             PORTCbits.RC7 = 0;
         }
    //
+        if (curfloor != prevFloor) UpdateScreen = 1;
+        
         CLRWDT();
-        Lcd_Clear();
-        sprintf(Line1, " %i A | fl: %i:%i ", currentReading,curfloor,TargetFloor); //Armazena em buffer o conte?do da vari?vel f formatado com duas casas;
+        
+        if (UpdateScreen == 1){
+            UpdateScreen = 0;
+            Lcd_Clear();
+        sprintf(Line1, " %i A | fl: %i:%i ", CurrentReading,curfloor,TargetFloor); //Armazena em buffer o conte?do da vari?vel f formatado com duas casas;
         Lcd_Set_Cursor(1, 1);
         Lcd_Write_String(Line1);
+        }
         
         if (Cancel == 1){
             TargetFloor = curfloor;
@@ -222,12 +224,12 @@ void __interrupt() TrataInt(void){
         PIR1bits.TMR1IF = 0;     // Clear flag
 
         // Reload timer
-        TMR1H = 0x15;
-        TMR1L = 0xF8;
+        TMR1H = T1H;
+        TMR1L = T1L;
 
          if (ADCON0bits.GO_nDONE == 0) {
             ADCON0bits.GO_nDONE = 1;
-            }
+        }
         
         
     }
@@ -239,6 +241,7 @@ void __interrupt() TrataInt(void){
         buff = PORTB;
         buff = buff & 0x0E;
         if (TargetFloor == curfloor){
+            UpdateScreen = 1;
             TargetFloor = buff >> 1;
         }
         //enqueue(buff >> 1);
@@ -248,11 +251,19 @@ void __interrupt() TrataInt(void){
     
     if (PIR1bits.ADIF) {
         PIR1bits.ADIF = 0;
-        currentReading = ADRESH*2;
-        if (currentReading> 50){
+        PrevReading = CurrentReading;
+        CurrentReading = ADRESH*2;
+        if (PrevReading != CurrentReading) UpdateScreen = 1;
+        if (CurrentReading> 50){
             Motor_Active = 0;
-            
+            Lcd_Clear();
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("Panic! current");
+            Lcd_Set_Cursor(2, 1);
+            Lcd_Write_String(" draw too high!");
         }
+        
+        
         
     }
     
